@@ -1257,9 +1257,32 @@ if __name__ == "__main__":
     bot.remove_webhook()
     t.sleep(1)
 
+    last_error_time = 0
+    retry_delay = 5
+
     while True:
         try:
             bot.infinity_polling(skip_pending=True)
+
         except Exception as e:
-            bot.send_message(423891946, "С ботом что-то не так. Вот ошибка:\n{}".format(e))
-            t.sleep(1)  # ВАЖНО: больше задержка
+            now = t.time()
+
+            if now - last_error_time > 30:
+                try:
+                    bot.send_message(
+                        423891946,
+                        f"С ботом что-то не так:\n{e}"
+                    )
+                except:
+                    print("Не удалось отправить сообщение админу")
+
+                last_error_time = now
+
+            print(f"Ошибка: {e}")
+
+            if "409" in str(e):
+                t.sleep(30)
+            else:
+                t.sleep(retry_delay)
+
+            retry_delay = min(retry_delay * 2, 60)
