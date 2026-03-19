@@ -11,7 +11,6 @@ from tokens import gc_service_account as gs_credit_nails
 import random
 
 st.write("running")
-st.stop()
 token = tokens["bot_tg_token"]
 bot = telebot.TeleBot(token)
 group_id = tokens["group_tg_id"]
@@ -1254,9 +1253,13 @@ def add_member_confirmation(message):
                              reply_markup=cancel_menu()), add_member_position)
 
 
-while True:
-    try:
-        bot.polling(none_stop=True, skip_pending=True)
-    except Exception as e:
-        bot.send_message(423891946, "С ботом что-то не так. Вот ошибка:\n{}".format(e))
-        t.sleep(1)
+if __name__ == "__main__":
+    bot.remove_webhook()
+    t.sleep(1)
+
+    while True:
+        try:
+            bot.infinity_polling(skip_pending=True)
+        except Exception as e:
+            bot.send_message(423891946, "С ботом что-то не так. Вот ошибка:\n{}".format(e))
+            t.sleep(1)  # ВАЖНО: больше задержка
