@@ -6,7 +6,7 @@ import telebot
 import time as t
 from telebot import types
 import datetime
-from tokens import demo_mode as tokens
+from tokens import production_mode as tokens
 from tokens import gc_service_account as gs_credit_nails
 import random
 
