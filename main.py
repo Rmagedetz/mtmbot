@@ -1255,6 +1255,7 @@ def add_member_confirmation(message):
 
 if __name__ == "__main__":
     bot.remove_webhook()
+    bot.send_message(423891946, "Бот запущен")
     t.sleep(1)
 
     last_error_time = 0
