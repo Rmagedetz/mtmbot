@@ -11,6 +11,7 @@ from tokens import gc_service_account as gs_credit_nails
 import random
 
 st.write("running")
+st.stop()
 token = tokens["bot_tg_token"]
 bot = telebot.TeleBot(token)
 group_id = tokens["group_tg_id"]
